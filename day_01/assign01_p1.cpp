@@ -6,7 +6,7 @@
 #include <assert.h>
 using namespace std;
 
-class timer {
+class date {
 
 private:
     int hours;
@@ -15,7 +15,7 @@ private:
 
 public:
 
-    timer(int hours = 0, int mins = 0, int seconds = 0){
+    date(int hours = 0, int mins = 0, int seconds = 0){
         this->hours = hours;
         this->mins = mins;
         this->seconds = seconds;
@@ -70,8 +70,8 @@ public:
 
 int main()
 {
-    timer t1(21, 2, 15); // declare var & init it
-    timer t2; // declare var
+    date t1(21, 2, 15); // declare var & init it
+    date t2; // declare var
     t2.set_hrs(10);
     t2.set_mins(20);
     t2.set_seconds(40);
