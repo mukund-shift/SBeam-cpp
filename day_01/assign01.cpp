@@ -64,7 +64,7 @@ public:
         }
     }
     void display() {
-    cout << this->hours << ":" << this->mins << ":" << this->seconds;
+    cout << this->hours << ":" << this->mins << ":" << this->seconds << endl;
     }
 };
 
