@@ -74,3 +74,5 @@ int main(){
     s1.pop();
     return 0;
 }
+
+// Skipping 5. menu driven program (tedious)
