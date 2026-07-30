@@ -15,6 +15,7 @@
 #include <string>
 using namespace std;
 
+// 3 wip, to do: write display_all class
 class item{
 private:
     int id;
@@ -25,16 +26,22 @@ private:
 public:
     item(){
         this->id = item::curr_id;
-        conc_inc();
-
-        
-    }
-    static void conc_inc(){
+        this->name = "";
+        this->price = item::price;
         item::curr_id++;
+        item::price += 100;
     }
-    void price_inc(){
-        this->price += 100;
+    ~item(){
+
     }
 };
 
-int item::curr_id = 1
+int item::curr_id = 1;
+int item::price = 100;
+
+int main(){
+    int n;
+    cout << "Enter size:" << endl;
+    cin >> n;
+    item* array = new item[n];
+}
