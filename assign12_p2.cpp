@@ -42,12 +42,17 @@ int main()
 	cout << "sizeof(C) = " << sizeof(C) << endl; // 12
 	cout << "sizeof(D) = " << sizeof(D) << endl; // 28
 	B* pb = &objD;
+	pb->bf1();
 	pb->bf2();
 	C* pc = &objD;
+	pc->cf1();
 	pc->cf2();
 	D* pd = &objD;
 	pd->bf1();
+	pd->bf2();
 	pd->df1();
-	pd->cf1();	
+	pd->df2();
+	pd->cf1();
+	pd->cf2();
 	return 0;
 }
