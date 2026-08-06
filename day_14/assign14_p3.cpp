@@ -1,0 +1,1 @@
+// 3. Design a bank account interface with deposit, withdrawal, and interest calculation methods. Implement Savings, Current, and Fixed Deposit account classes.
