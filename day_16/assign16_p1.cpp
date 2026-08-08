@@ -1,7 +1,7 @@
 #include "assign16_p1.h"
 
 
-product::product(string title = "", int cost = 0){
+product::product(string title, int cost){
     this->title = title;
     this->cost = cost;
 }
@@ -26,7 +26,7 @@ int product::get_price(){
 }
 
 
-book::book(int pages = 0, string title = "", int cost = 0): product(title, cost)
+book::book(int pages, string title, int cost): product(title, cost)
     {
         this->pages = pages;
     }
@@ -43,7 +43,7 @@ int book::calc_price(){
     return this->cost * 1.05;
 }
 
-tape::tape(int duration = 0, string title = "", int cost = 0): product(title, cost)
+tape::tape(int duration, string title, int cost): product(title, cost)
     {
         this->duration = duration;
     }
@@ -59,3 +59,5 @@ void tape::display(){
 int tape::calc_price(){
     return this->cost * 1.1;
 }
+
+// dont write default args in .cpp module
