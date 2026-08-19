@@ -16,10 +16,10 @@ Fraction(int num, int den){
     this->den = den;
 }
 explicit operator double(){
-    return (this->num)/(this->den);
+    return static_cast<float>(this->num)/(this->den);
 }
 
-void operator=(int num){
+Fraction& operator=(int num){
     this->num = num;
     this->den = 1;
 }
@@ -34,7 +34,7 @@ double operator+(Fraction f){
 
 int main(){
     Fraction f1(3, 4);
-    double temp = (double) f1;
+    auto temp = static_cast<double>(f1);
     cout << temp << endl;
     
     return 0;
