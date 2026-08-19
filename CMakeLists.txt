@@ -33,4 +33,6 @@ add_executable(SBeam_cpp
         day_16/test.cpp
         day_23/assign23.cpp)
 
-add_executable(assign23 day_23/assign23.cpp)
+add_executable(assign23 day_23/assign23.cpp
+)
+add_executable(assign17 day_17/assign17.cpp)
