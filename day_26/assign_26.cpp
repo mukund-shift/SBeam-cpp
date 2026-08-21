@@ -2,6 +2,8 @@
 // 2. How to use our generic Stack<T> class with char str[20];?
 
 #include <iostream>
+#include <string>
+#include <cstring>
 using namespace std;
 
 template<typename T>
@@ -29,18 +31,52 @@ public:
     }
 };
 
+template <>
+class Stack<char*>{
+    char* arr[100];             // array of 100 char ptrs
+    int top;
+public:
+    Stack(){
+        top = -1;
+    }
+    void push(const char* str){
+        char temp[30];
+        strcpy(temp, str);
+        top++;
+        arr[top] = temp;
+        cout << "Added: " << temp << endl;
+    }
+    char* pop(){
+        cout << "Popping..." << endl;
+        char temp[30];
+        strcpy(temp ,arr[top--]);
+        return temp;
+    }
+    void display(){
+        cout << "Stack: " << endl;
+        for (int i = 0; i <= top; i++){
+            cout << arr[i] << ", ";
+        }
+        cout << " <-- TOP" << endl;
+        cout << &arr[0] << "|" << &arr[1] << "|" << &arr[2] << endl;
+    }
+};
+
 
 int main(){
-    Stack<int> s1;
-    s1.push(31);
-    s1.push(32);
-    s1.push(33);
+    Stack<char*> s1;
+    s1.push("Hi");
+    s1.push("I");
+    s1.push("See");
+    s1.push("You,");
     s1.display();
-    s1.pop();
+    s1.push("Do");
+    s1.push("You?");
     s1.display();
-    s1.pop();
-    s1.display();
-    s1.pop();
-    s1.display();
-
+    // s1.pop();
+    // s1.display();
+    // s1.pop();
+    // s1.display();
+    // s1.pop();
+    // s1.display();
 }
