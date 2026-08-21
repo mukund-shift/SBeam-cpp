@@ -1,3 +1,7 @@
+// 1. Create a class CricketPlayer with id, name, runs and wickets members.
+//  Write a program that can append new player details in a text file and
+//   display all the players info from file.
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -61,7 +65,6 @@ while (true){
         file << "Wickets: " << c1.wickets << endl << endl;
         break;
     }
-1
     case 2: {
         ifstream file("Cricketers.txt", ios::in);
         char temp[50];
