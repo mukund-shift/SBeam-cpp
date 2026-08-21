@@ -40,11 +40,12 @@ public:
         top = -1;
     }
     void push(const char* str){
-        char temp[30];
+        char* temp = new char[30];  // very impt to use dyn_alloc else temp gets same address always and all 
+                                    // char* of stack point to same location
         strcpy(temp, str);
         top++;
         arr[top] = temp;
-        cout << "Added: " << temp << endl;
+        cout << "Pushed: " << temp << endl;
     }
     char* pop(){
         cout << "Popping..." << endl;
@@ -58,7 +59,12 @@ public:
             cout << arr[i] << ", ";
         }
         cout << " <-- TOP" << endl;
-        cout << &arr[0] << "|" << &arr[1] << "|" << &arr[2] << endl;
+    }
+    ~Stack() {
+        while (top >= 0) {
+            delete[] arr[top];
+            top--;
+        }
     }
 };
 
@@ -68,15 +74,12 @@ int main(){
     s1.push("Hi");
     s1.push("I");
     s1.push("See");
-    s1.push("You,");
-    s1.display();
+    s1.push("You");
     s1.push("Do");
     s1.push("You?");
     s1.display();
-    // s1.pop();
-    // s1.display();
-    // s1.pop();
-    // s1.display();
-    // s1.pop();
-    // s1.display();
+    s1.pop();
+    s1.display();
+    s1.pop();
+    s1.display();
 }
