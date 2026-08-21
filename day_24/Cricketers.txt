@@ -1,19 +1,18 @@
 Cricketer: 
-ID, Name, Runs and Wickets: 
-32, Virat, 432, 21
+ID: 1
+Name: mknd
+Runs: 32320
+Wickets: 11
 
 Cricketer: 
-ID, Name, Runs and Wickets: 
-31, Veerat, 543, 32
-Cricketer: 
-ID, Name, Runs and Wickets: 
-0, Generic Name, 0, 0
+ID: 2
+Name: MSD
+Runs: 323201
+Wickets: 231
 
 Cricketer: 
-ID, Name, Runs and Wickets: 
-0, Generic Name, 0, 0
-
-Cricketer: 
-ID, Name, Runs and Wickets: 
-21, 32, 430, 120
+ID: 3
+Name: Virat
+Runs: 312312
+Wickets: 1212
 

@@ -18,8 +18,14 @@ public:
         this->wickets = wickets;
     }
     void accept(){
-        cout << "Enter ID, Name, Runs and Wickets: " << endl;
-        cin >> id >> name >> runs >> wickets;
+        cout << "Enter ID: " << endl;
+        cin >> id;
+        cout << "Enter Name: " << endl;
+        cin >> name;
+        cout << "Enter Runs: " << endl;
+        cin >> runs;
+        cout << "Enter Wickets: " << endl;
+        cin >> wickets;
     }
     void display(){
         cout << "Cricketer: " << endl;
@@ -30,11 +36,15 @@ public:
 
 int main(){
     int choice;
+    
+
+while (true){
     cout << "Enter your choice:" << endl;
     cout << "1. Append to records:" << endl;
     cout << "2. Display records:" << endl;
     cout << "3. Exit:" << endl;
     cin >> choice;
+    cout << "-------------------------------------------" << endl;
 
     switch (choice)
     {
@@ -42,17 +52,22 @@ int main(){
         CricketPlayer c1;
         c1.accept();
         ofstream file("Cricketers.txt", ios::app);
+        if (!file)
+            cout << "File open error" << endl;
         file << "Cricketer: " << endl;
-        file << "ID, Name, Runs and Wickets: " << endl;
-        file << c1.id << ", " << c1.name << ", " << c1.runs << ", " << c1.wickets << endl << endl;
+        file << "ID: " << c1.id << endl;
+        file << "Name: " << c1.name << endl;
+        file << "Runs: " << c1.runs << endl;
+        file << "Wickets: " << c1.wickets << endl << endl;
         break;
     }
-
+1
     case 2: {
         ifstream file("Cricketers.txt", ios::in);
         char temp[50];
         while (file.getline(temp, sizeof(temp)))
             cout << temp << endl;
+        break;
     }
     
     case 3: {
@@ -62,6 +77,10 @@ int main(){
     default:
         cout << "You are a stupid user. Invalid Choice." << endl;
     }
+    cout << "-------------------------------------------" << endl;
+    if (choice == 3)
+        break;
+}
     return 0;
 }
 
