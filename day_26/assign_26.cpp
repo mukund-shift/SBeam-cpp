@@ -47,18 +47,21 @@ public:
         arr[top] = temp;
         cout << "Pushed: " << temp << endl;
     }
-    char* pop(){
+    string pop(){
         cout << "Popping..." << endl;
-        char temp[30];
-        strcpy(temp ,arr[top--]);
-        return temp;
+        string temp;
+        temp = arr[top];
+        delete[] arr[top--];
+        return temp;                        // must use string here since returning char* causes dangling ptr
     }
     void display(){
+        cout << "----------------------------------" << endl;
         cout << "Stack: " << endl;
         for (int i = 0; i <= top; i++){
             cout << arr[i] << ", ";
         }
         cout << " <-- TOP" << endl;
+        cout << "----------------------------------" << endl;
     }
     ~Stack() {
         while (top >= 0) {
@@ -78,8 +81,11 @@ int main(){
     s1.push("Do");
     s1.push("You?");
     s1.display();
-    s1.pop();
+    string popped = s1.pop();
+    cout << "Popped: " << popped << endl;
     s1.display();
     s1.pop();
+    s1.display();
+    s1.push("There.");
     s1.display();
 }
