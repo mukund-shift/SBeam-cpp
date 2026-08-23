@@ -53,7 +53,7 @@ public:
         temp = arr[top];
         delete[] arr[top--];
         return temp;                        // must use string here since returning char* causes dangling ptr
-    }
+    }                                       // or you can use char* but u cant return anything from pop() then.
     void display(){
         cout << "----------------------------------" << endl;
         cout << "Stack: " << endl;
