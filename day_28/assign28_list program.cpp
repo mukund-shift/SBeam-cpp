@@ -2,12 +2,9 @@
 //  Implement menu driven program to manage employee in a vector.   
 //   Menu options: Add Emp, Display All Emp, Find Emp, Delete Emp, Save to file, Load from file.
 // 2. Reimplement above program using STD list.                     
-// 3. Store n integers in a vector and find the maximum and minimum elements using vector operations.
 
-// Done: 1| TODO: 2, 3.
 
 #include <iostream>
-#include <vector>
 #include <list>
 #include <cstring>
 #include <fstream>
@@ -27,6 +24,7 @@ public:
     ~Employee(){}
 
     inline int get_id(){return this->id;}
+    inline char* get_name(){return this->name;}
 
     void display(){
         cout << "----------------------------" << endl;
@@ -45,29 +43,20 @@ public:
         cin >> sal;
         cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << endl;
     }
-
-    void clean(){
-        // replaces all data of obj to a "deleted/cleansed" state
-        id = -1;
-        strcpy(name, "Deleted");
-        sal = -1;
-    }
 };
 
-void Save_to_file(vector<Employee> Emp_vector , const char filename[20] = "Employees.dat"){
+void Save_to_file(list<Employee> Emp_list , const char filename[20] = "Employees.dat"){
     fstream file(filename, ios::app|ios::binary);
-    vector<Employee>::iterator itr = Emp_vector.begin();
-    while (itr != Emp_vector.end()){
+    list<Employee>::iterator itr = Emp_list.begin();
+    while (itr != Emp_list.end()){
         file.write((char*)&(*itr), sizeof(Employee));
         itr++;
     }
-    cout << "Saved " << itr - Emp_vector.begin() << " records successfully to " << filename << endl;
-    // (itr - Emp_vector) evaluates to no of records saved, since itr==Emp_vector.end() after done saving
+    cout << "Saved records successfully to " << filename << endl;
 }
 
-vector<Employee> Load_from_file(const char filename[20] = "Employees.dat"){
-    vector<Employee> output;
-    output.reserve(10);
+list<Employee> Load_from_file(const char filename[20] = "Employees.dat"){
+    list<Employee> output;
     fstream file(filename, ios::in|ios::binary);
     Employee temp;
     int count = 0;
@@ -79,24 +68,43 @@ vector<Employee> Load_from_file(const char filename[20] = "Employees.dat"){
     return output;
 }
 
-int search_vector(int &target_id, vector<Employee> &emps){      // Returns index if found or else returns -1
-    vector<Employee>::iterator itr = emps.begin();
+void search_list(int &target_id, list<Employee> &emps){      // Displays Employee if found
+    list<Employee>::iterator itr = emps.begin();
     bool found = false;
     while (itr != emps.end()){
         if (itr->get_id() == target_id){
             found = true;
-            return itr - emps.begin();              // evaluates to an int index
+            itr->display();
+            return;
         }
         itr++;
     }
     if (!found){
-        return -1;
+        cout << "Not found" << endl;
+    }       // if not found: itr == emps.end()
+}           // search by index doesnt make sense for linked list
+
+void delete_node(int target_id , list<Employee> &emps){
+    list<Employee>::iterator itr = emps.begin();
+    bool found = false;
+    while (itr != emps.end())
+    {
+        if (itr->get_id() == target_id){
+            emps.erase(itr);
+            found = true;
+            cout << "Deleted successfully." << endl;
+            return;                      // must return/break when youre deleting due to itr invalidation on erasure.
+        itr++;
+    }
+    if (!found){
+        cout << "No such id was found" << endl;
+    }
     }
 }
 
 int main(){
-    vector<Employee> employees;
-    int choice;
+    list<Employee> employees;
+    int choice = 0;
     while (choice != -1){
         cout << "Enter choice: " << endl;
         cout << "1. Add Employee" << endl;
@@ -117,7 +125,7 @@ int main(){
             break;
         }
         case 2:{    // Display emps
-            vector<Employee>::iterator itr = employees.begin();
+            list<Employee>::iterator itr = employees.begin();
             while(itr != employees.end()){
                 itr->display();
                 itr++;
@@ -128,31 +136,21 @@ int main(){
             int target_id;
             cout << "Enter id of emp to be found: " << endl;
             cin >> target_id;
-            int index = search_vector(target_id, employees);
-            if (index != -1)
-            {cout << "Employee found at index: " << index << endl;}
-            else
-            {cout << "No such employee id found." << endl;}
+            search_list(target_id, employees);
             break;
         }
         case 4:{    // Delete emp
             int target_id;
             cout << "Enter id of emp to be deleted: " << endl;
             cin >> target_id;
-            int index = search_vector(target_id, employees);
-            if (index != -1)
-            {
-                employees.erase(employees.begin() + index);         // O(n)
-            }
-            else
-            {cout << "No such employee id found." << endl;}
+            delete_node(target_id, employees);
             break;
         }
-        case 5:{    // Save vector to file
+        case 5:{    // Save list to file
             Save_to_file(employees);                // appends to file, records will repeat if you push after loading from the file
             break;
         }
-        case 6:{    // Load emp vector from file
+        case 6:{    // Load emp list from file
             employees = Load_from_file();
             break;
         }
