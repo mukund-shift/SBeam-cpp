@@ -2,6 +2,8 @@
 //  Provide appropriate conversion functions. Overload relevant operators.
 //  Implement a function object to check if the given Fraction is proper object or not.
 
+// TODO : Implement a function object to check if the given Fraction is proper object or not.
+
 #include <iostream>
 using namespace std;
 
