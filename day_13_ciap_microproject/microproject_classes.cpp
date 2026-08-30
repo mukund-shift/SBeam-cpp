@@ -22,18 +22,11 @@ public:
         this->desc = desc;
     }
 
-    virtual void display() = 0{
-        cout << "Service Description: " << this->service::desc << endl;
-    }
+    virtual void display() = 0;
 
-    virtual void input() = 0{
-        cout << "Enter Service Description: " << endl;
-        cin >> desc;
-    }
+    virtual void input() = 0;
 
-    virtual double price() = 0{
-        // Redefine this in derived classes
-    }
+    virtual double price() = 0;
 
 
 };
@@ -75,10 +68,11 @@ class maintenance: public service{
     double labor_charges;
 
 public:
-    // oil(string desc = "Generic Service", double cost = 0) : service(desc)
-    // {
-    //     this->cost = cost;
-    // }
+    maintenance(string desc = "Generic Service", list<part> part_list = list<part>(),  double labor_charges = 0) : service(desc)
+    {
+        this->part_list = part_list;
+        this->labor_charges = labor_charges;
+    }
 
     inline double get_labor_charges(){
         return labor_charges;
@@ -88,10 +82,10 @@ public:
         this->labor_charges = labor_charges;
     }
 
-    // void display(){
-    //     this->service::display();
-    //     cout << "Oil Cost: " << this->cost << endl;
-    // }
+    void display(){
+        this->service::display();
+        cout << "Mantainence Cost: " << this->cost << endl;
+    }
 
     // void input(){
     //     this->service::input();
