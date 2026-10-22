@@ -22,9 +22,14 @@ public:
         this->desc = desc;
     }
 
-    virtual void display() = 0;
+    virtual void display(){
+        cout << "Service:" << this->desc << endl;
+    }
 
-    virtual void input() = 0;
+    virtual void input(){
+        cout << "Enter Service Description" << endl;
+        cin >> this->desc;
+    }
 
     virtual double price() = 0;
 
@@ -68,9 +73,8 @@ class maintenance: public service{
     double labor_charges;
 
 public:
-    maintenance(string desc = "Generic Service", list<part> part_list = list<part>(),  double labor_charges = 0) : service(desc)
+    maintenance(string desc = "Generic Service", double labor_charges = 0) : service(desc)
     {
-        this->part_list = part_list;
         this->labor_charges = labor_charges;
     }
 
@@ -82,23 +86,44 @@ public:
         this->labor_charges = labor_charges;
     }
 
-    void display(){
-        this->service::display();
-        cout << "Mantainence Cost: " << this->cost << endl;
+    inline void add_part(const part& new_part){
+        part_list.push_front(new_part);
     }
 
-    // void input(){
-    //     this->service::input();
-    //     cout << "Enter Oil Cost: " << endl;
-    //     cin >> cost;
-    // }
+    inline list<part>& get_part_list(){
+        return this->part_list;
+    }
 
-    // double price(){
-    //     return cost;
-    // }
+    void display(){
+        cout << "Part list:" << endl;
+        for (auto itr = part_list.begin(); itr != part_list.end(); itr++){
+            cout << itr->get_desc() << " | " << "Cost: " << itr->get_rate() << endl;
+        }
+        cout << "Labor Charges: " << this->labor_charges << endl;
+    }
+
+    void input(){
+        this->service::input();
+        cout << "Enter no of parts :" << endl;
+        int n;
+        cin >> n;
+        part temp_part;
+        for (int i = 0; i < n; i++){
+            temp_part.input();
+            part_list.push_front(temp_part);
+        }
+        cout << "Enter Labor Charges" << endl;
+        cin >> this->labor_charges;
+    }
+
+    double price(){
+        double total = 0;
+        for (auto itr = part_list.begin(); itr != part_list.end(); itr++){
+            total += itr->get_rate();
+        }
+        total += labor_charges;
+    }
 };
-
-
 
 class part{
     string desc;
@@ -132,16 +157,46 @@ public:
     inline void set_rate(double rate){
         this->rate =  rate;
     }
-
-
 };
-
 
 class service_request{
     string cust_name;
-    list<service> serv_list;
+    list<service*> serv_list;
     string veh_number;
 public:
+    service_request(string name, string veh_no){
+        this->cust_name = name;
+        this->veh_number = veh_no;
+    }
+
+    inline void set_cust_name(const string& name){
+        this->cust_name = name;
+    }
+    inline void set_veh_number(const string& veh_no){
+        this->veh_number = veh_no;
+    }
+    inline string& get_cust_name(){
+        return this->cust_name;
+    }
+    inline string& get_veh_number(){
+        return this->veh_number;
+    }
+    
+    inline void add_item(service* serv){
+        serv_list.push_front(serv);
+    }
+    inline list<service*>& get_serv_list(){
+        return this->serv_list;
+    }
+    
+    void process_request(){
+        double total = 0;
+        for (auto serv_itr = serv_list.begin(); serv_itr != serv_list.end(); serv_itr++){
+            auto temp_ptr = *serv_itr;
+            total += temp_ptr->price();
+        }
+    }
+
 };
 
 
@@ -193,6 +248,14 @@ class customer{
     string mobile;
     string name;
     vector<vehicle> veh_list;
+    
+    public:
+    customer(const string& name = "Generic Name", const string& address = "Generic Address", const string& mobile = "0101"){
+        this->address = address;
+        this->mobile = mobile;
+        this->name = name;
+    }
+
 };
 
 class bill{
